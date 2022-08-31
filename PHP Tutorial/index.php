@@ -175,7 +175,7 @@ if(isset($_GET['logout'])) {
         <div id="dropdown">
             <button id="drop-btn"><?php echo $_SESSION['username'] ?></button>
             <div id="dropdown-content">
-                <a href="authentication/login.php">CHANGE PASSWORD</a>
+                <a href="authentication/changepwd.php">CHANGE PASSWORD</a>
                 <a href="index.php?logout=true">LOGOUT</a>
             </div>
         </div>
@@ -212,43 +212,29 @@ if(isset($_GET['logout'])) {
     <div id="page-body">
         <div id="products">
             <div class="row row-cols-1 row-cols-md-3 g-4">
+                <?php
+
+                $sql_query = "SELECT * from music ORDER BY views desc";
+                $result=mysqli_query($conn,$sql_query);
+                while($data=mysqli_fetch_array($result)) {
+                ?>
                 <div class="col">
                   <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="assets/musicimg/<?php echo $data['image']?>" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <audio controls>
+                            <source src="assets/music/<?php echo $data['link']?>" />
+                        </audio>
+                        <h5 class="card-title"><?php echo $data['name'] ?></h5>
+                      
                     </div>
                     <div class="card-footer">
                       <small class="text-muted">Last updated 3 mins ago</small>
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    </div>
-                    <div class="card-footer">
-                      <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <?php } ?>
+            </div>
         </div>
         
     <div id="footer"></div>

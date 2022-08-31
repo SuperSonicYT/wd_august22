@@ -3,28 +3,38 @@
 include "../config.php";
 
 if(isset($_POST['submit'])) {
-    $name = mysqli_real_escape_string($conn,$_POST['name']);
-    $email = mysqli_real_escape_string($conn,$_POST['email']);
-    $pwd = mysqli_real_escape_string($conn,$_POST['pwd']);
+    $email = mysqli_real_escape_string($conn,$_SESSION['email']);
+    $opwd = mysqli_real_escape_string($conn,$_POST['opwd']);
+    $npwd = mysqli_real_escape_string($conn,$_POST['npwd']);
     $cpwd = mysqli_real_escape_string($conn,$_POST['cpwd']);
-    if($name!="" && $email!="" && $pwd!="" && $cpwd!="") {
-        if($pwd===$cpwd) {
-            $cipherpwd = password_hash($pwd,PASSWORD_BCRYPT);
-            $sql_query = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$cipherpwd');";
-            $result = mysqli_query($conn,$sql_query);
-            if($result) {
-                header("Location:login.php");
+    if($email!="" && $opwd!="" && $cpwd!="" && $npwd!="") {
+        $sql_query = "SELECT password as pwd,user_id as userid FROM users WHERE email='$email';";
+        $result = mysqli_query($conn,$sql_query);
+        $row = mysqli_fetch_array($result);
+        $id=$row['userid'];
+        $passverify = password_verify($opwd,$row['pwd']);
+        if($passverify===true) {
+            if($npwd===$cpwd) {
+                $cipherpwd = password_hash($npwd,PASSWORD_BCRYPT);
+                $sql_query = "UPDATE users SET password='$cipherpwd' WHERE user_id='$id';";
+                $result = mysqli_query($conn,$sql_query);
+                if($result) {
+                    header("Location:login.php");
+                }
+                else {
+                    echo "Password could not be changed. Contact customer support";
+                }
             }
             else {
-                echo "Account could not be created. Email already exists";
+                echo "New passwords entered did not match";
             }
         }
         else {
-            echo "Passwords did not match";
+            echo "Old password entered is incorrect";
         }
-    }   
+    }
     else {
-        echo "All Fields are mandatory";
+        echo "All fields are mandatory";
     }
 }
 
@@ -130,7 +140,7 @@ if(isset($_POST['submit'])) {
             display:block;
             opacity:0.9;
         }
-        .login-show input[type="email"], .login-show input[type="text"], .login-show input[type="password"]{
+        .login-show input[type="email"], .login-show input[type="password"]{
             width: 100%;
             display: block;
             margin:20px 0;
@@ -155,7 +165,7 @@ if(isset($_POST['submit'])) {
             padding:10px 0;
         }
 
-        .register-show input[type="email"],.register-show input[type="password"]{
+        .register-show input[type="email"], .register-show input[type="password"]{
             width: 100%;
             display: block;
             margin:20px 0;
@@ -235,21 +245,19 @@ else if($('#log-reg-show').is(':checked')) {
 		</div>
 							
 		<div class="register-info-box">
-			<h2>Have an account?</h2>
+			<h2>Don't have an account?</h2>
 			<p>Lorem ipsum dolor sit amet</p>
-			<label id="label-login" for="log-login-show">Login</label>
+			<label id="label-login" for="log-login-show">Register</label>
 			<input type="radio" name="active-log-panel" id="log-login-show">
 		</div>
 							
 		<div class="white-panel">
 			<form class="login-show" method="post" action="">
-				<h2>REGISTER</h2>
-				<input type="text" placeholder="Full Name" name="name">
-                <input type="email" placeholder="Email" name="email">
-				<input type="password" placeholder="Password" name="pwd">
+				<h2>CHANGE PASSWORD</h2>
+                <input type="password" placeholder="Old Password" name="opwd">
+                <input type="password" placeholder="New Password" name="npwd">
 				<input type="password" placeholder="Confirm Password" name="cpwd">
-				<input type="submit" value="Login" name="submit">
-				<a href="">Forgot password?</a>
+				<input type="submit" value="Change Password" name="submit">
             </form>
 			<div class="register-show">
 	<div class="login-reg-panel">
@@ -261,9 +269,9 @@ else if($('#log-reg-show').is(':checked')) {
 		</div>
 							
 		<div class="register-info-box">
-			<h2>Already have an account?</h2>
+			<h2>Don't have an account?</h2>
 			<p>Lorem ipsum dolor sit amet</p>
-			<label id="label-login" for="log-login-show">Login</label>
+			<label id="label-login" for="log-login-show">Register</label>
 			<input type="radio" name="active-log-panel" id="log-login-show">
 		</div>
 							
