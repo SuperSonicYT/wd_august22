@@ -213,6 +213,7 @@ if(isset($_GET['logout'])) {
         <div id="products">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <?php
+            
 
                 $sql_query = "SELECT * from music ORDER BY views desc";
                 $result=mysqli_query($conn,$sql_query);

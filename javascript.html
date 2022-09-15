@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // single line comments
+        
+        /* multiple 
+        line
+        comments */
+
+        
+        var a = 10;  //integer DT
+        var b="wdffv";  //string DT
+        var c=true;  //boolean Dt
+
+        var t1="";  //null TDT
+        var t2;  //undefined TDT
+
+        var arr=[10,20,45,"Wfddfege",true];  //arrays
+        arr[0]; // 10 output
+
+        var student_obj = {      // objects in JSON format
+            Name: {
+                First: "Akash",
+                Last: "Soni"
+            },
+            Mob: 4453245554,
+            email: "akash@gmail.com",
+            address: {
+                Street_address: {
+                    Address_Line1: "frgeefg",
+                    Address_Line2: "Ffedfv"
+                },
+                Landmark: ["Frgerf","wfrfre","frfrf"],
+                City:"Bangalore",
+                Pincode: 560054
+            }
+        }
+        document.write(student_obj.Name.First+" "+student_obj.Name.Last);
+
+        const x=20;
+
+        var m; //declaration
+        m=30; //initialization
+
+        document.write(x);
+        console.log("Error");
+
+
+        //other operators same as PHP
+        (a>30) ? document.write("Greater") : document.write("Lesser");  //conditional operators
+        
+        // website for drivers licence
+        var age=20;
+        var ll=true;
+        if(age>=18 && ll==true) {
+            document.write("Eligible to drive");
+        } 
+        else if(age>=18 && ll!=true) {
+            document.write("Eligible to learn driving");
+        }
+        else if(age>65 && ll!=true) {
+            document.write("Eligible to learn driving");
+        }
+        else {
+            document.write("Not eligible to drive");
+        }
+
+
+        //grading system
+        var grade='A';
+        switch(grade) {
+            case 'A+':
+                document.write("Scored 91-100");
+                break;
+            case 'A': 
+                document.write("Scored 81-90");
+            case 'F': 
+                document.write("Scored 0-39");
+            default:
+                document.write("Grade is not a correct value");
+        }
+
+        
+        var i=0;
+        while(i<100) {
+            //document.write(i);
+            i++;
+        }
+
+        var i=0;
+
+        for(var i=0;i<100;i++) {
+            //document.write(i);
+        }
+
+
+        var i=0;
+        do {
+            //document.write(i);
+            i++;
+        }
+        while(i<100);
+        
+
+        //loop control
+        var i=0;
+        while(i<100) {
+            if(i%5==0) {
+                i++;
+                continue;
+            }
+            document.write(i+"<br>");
+            i++;
+        }
+
+        var i=0;
+        while (i<100) {
+        
+            if(i==50) {
+                i++;
+                continue;
+            }
+            //document.write(i+"<br>");
+            i++;
+        }
+
+        function myfunc(x,y) {
+            return x+y;
+        }
+        var sum = myfunc(a,b);
+
+
+        var myfunc = (x,y) => {
+            return x+y;
+        }
+
+        var textarea_update = () => {
+            var x=document.getElementById('textbox').value;
+            console.log(x);
+        }
+
+        function dragenter(event) {
+            document.getElementById('textarea').value="Drop item to upload";
+        }
+        function dragleave(event) {
+            document.getElementById('textarea').value="Drag item to upload";
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            event.target.appendChild(document.getElementById(event.dataTransfer.getData("Text")));
+        }
+        function dragstart(event) {
+             event.dataTransfer.setData("Text",event.target.id);
+        }
+
+        username@gmail.com
+        
+        function ValidateEmail(mail) {
+            if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(myForm.emailAddr.value)) {
+                return (true)
+            }
+            alert("You have entered an invalid email address!")
+            return (false)
+        }
+        
+    </script>
+</head>
+<body>
+    <p id="para" draggable="true">Hi there</p>
+    <button onclick="notification()">DELETE</button>
+    <button onclick="window.print()">PRINT</button>
+    <img 
+    <form onsubmit="validation()">
+        <input id="textbox" type="text" onchange="textarea_update()"/>
+        <input id="button" type="button" value="button" on onclick="alert('Hello World')">
+        <button type="submit">SUBMIT</button>
+        <div style="border:solid black;height: 50px; width: 50px;" id="textarea" ondragenter="dragenter(enter)" ondragleave="dragleave(event)" ondrop="drop(event)" rows="10" cols="10"></div>
+    </form>
+    <script>
+        function notification() {
+            //window.alert("this is a notification");   //alert dialog box
+            /*var con=window.confirm("Are you sure?");  //confirm dialog box
+            if(con==true) {
+                document.getElementById("para").innerText="File Deleted";
+            }*/
+            /*var captcha=window.prompt("Are you sure? Enter 'ewwer' to verify");   //prompt dialog box
+            if(captcha) {
+                    if(captcha==="ewwer") {
+                        document.getElementById("para").innerText="File Deleted";
+                    }
+            }*/
+
+        }
+        document.getElementById('para').innerHTML = "<b>Hello World</b>";
+        document.write(x);
+    </script>
+</body>
+</html>
